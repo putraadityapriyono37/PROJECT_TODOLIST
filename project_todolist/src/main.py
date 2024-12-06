@@ -1,26 +1,44 @@
-import flet as ft
+from flet import *
 
+def main(page: Page):
+    BG = '#041955'
+    FWG = '#97b4ff'
+    FG = '#3450a1'
+    PINK = '#eb06ff'
 
-def main(page: ft.Page):
-    counter = ft.Text("0", size=50, data=0)
-
-    def increment_click(e):
-        counter.data += 1
-        counter.value = str(counter.data)
-        counter.update()
-
-    page.floating_action_button = ft.FloatingActionButton(
-        icon=ft.Icons.ADD, on_click=increment_click
+    page_1 = Container()
+    page_2 = Row(
+        controls=[
+            Container(
+                width=400,
+                height=850,
+                bgcolor=FG,
+                border_radius=35,
+                padding=padding.only(
+                    top=50,left=20,
+                    right=20,bottom=5
+                ),
+                content=Column(
+                    first_page_contents
+                )
+            )
+        ]
     )
-    page.add(
-        ft.SafeArea(
-            ft.Container(
-                counter,
-                alignment=ft.alignment.center,
-            ),
-            expand=True,
+
+    container = Container(
+        width=400,
+        height=850,
+        bgcolor=BG,
+        border_radius=35,
+        content=Stack(
+            controls=[
+                page_1,
+                page_2
+
+            ]
         )
     )
+    page.add(container)
 
 
-ft.app(main)
+app(target=main)
