@@ -20,7 +20,7 @@ def main(page: Page):
                     center=alignment.center,
                     start_angle=0.0,
                     end_angle=3,
-                    stop=[0.5, 0.5],
+                    stops=[0.5, 0.5],
                     colors=["#00000000", PINK],
                 ),
                 width=100,
