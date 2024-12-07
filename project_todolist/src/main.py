@@ -157,7 +157,7 @@ def main(page: Page):
     )
     pages = {
         '/':View(
-                "/"
+                "/",
                 [
                     container
                 ],
