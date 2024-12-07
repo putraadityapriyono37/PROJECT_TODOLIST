@@ -1,4 +1,5 @@
 from flet import *
+from custom_checkbox import CustomCheckBox
 
 def main(page: Page):
     BG = '#041955'
@@ -6,7 +7,41 @@ def main(page: Page):
     FG = '#3450a1'
     PINK = '#eb06ff'
 
-    tasks = Column()
+    def shrink(e):
+        page_2.controls.width = 120
+
+        
+    create_task_view = Container(on_click=lambda _: page.go('/'),
+        content=Container(
+        height=40,width=40,
+        content=Text('x')
+        )
+    )
+    
+    tasks = Column(
+        height=400,
+        scroll='auto',
+        # controls=[
+        #     Container(height=50,width=300,bgcolor='red')
+        #     Container(height=50,width=300,bgcolor='red')
+        #     Container(height=50,width=300,bgcolor='red')
+        #     Container(height=50,width=300,bgcolor='red')
+        #     ]
+    )
+    for i in range(10):
+        tasks.controls.append(
+            Container(
+            height=70,
+            width=400,
+            bgcolor=BG,
+            border_radius=25,padding=padding.only(
+                left=20,top=25,
+            ),
+            content=CustomCheckBox(
+                color=PINK,
+                label='Create Interesting Content!')
+            ),
+        )
 
     categories_card = Row(
         scroll='auto'
@@ -45,7 +80,7 @@ def main(page: Page):
             controls=[
                 Row(alignment='spaceBetween',
                     controls=[
-                        Container(
+                        Container(on_click=lambda e: shrink(e),
                             content=Icon(
                                 icons.MENU)),
                         Row(
@@ -72,7 +107,7 @@ def main(page: Page):
                 Stack(
                     controls=[
                         tasks,
-                        FloatingActionButton(
+                        FloatingActionButton(bottom=2,right=20,
                             icon = icons.ADD,on_click=lambda _: page.go('/create_task')
 
                         )
@@ -90,6 +125,8 @@ def main(page: Page):
                 height=850,
                 bgcolor=FG,
                 border_radius=35,
+                animate=animation.Animation(600,AnimationCurve.DECELERATE),
+                animate_scale=animation.Animation(400,curve='decelerate'),
                 padding=padding.only(
                     top=50,left=20,
                     right=20,bottom=5
@@ -118,8 +155,30 @@ def main(page: Page):
         )
 
     )
+    pages = {
+        '/':View(
+                "/"
+                [
+                    container
+                ],
+             ),
+        '/create_task': View(
+                        "/create_task",
+                        [
+                            create_task_view
+                        ],
+                    )
+    }
+    #container = Container() #azora
+    def route_change(route):
+        page.views.clear()
+        page.views.append(
+            pages[page.route]
+        )
+
     page.add(container)
 
-app(target=main)
+    page.on_route_change = route_change
+    page.go(page.route)
 
-#azora
+app(target=main)
