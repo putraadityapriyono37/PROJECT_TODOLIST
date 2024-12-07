@@ -63,10 +63,10 @@ def main(page: Page):
         page_2.controls[0].scale = transform.Scale(
             0.8,alignment=alignment.center_right)
         page_2.controls[0].border_radius=border_radius.only(
-            topLeft=35,
-            topRight=0,
-            bottomLeft=35,
-            bottomRight=0
+            top_left=35,
+            top_right=0,
+            bottom_left=35,
+            bottom_right=0
         )
         page_2.update()
         
@@ -228,7 +228,7 @@ def main(page: Page):
                     Text('Templates',size=15,weight=FontWeight.W_300,
                          color='white',font_family='poppins')
                 ]),
-                Image(src=f"/assets/1.png",
+                Image(src=f"/images/1.png",
                 width=300,
                 height=200,
                 ),
